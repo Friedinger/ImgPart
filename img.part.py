@@ -2,13 +2,15 @@ from PIL import ImageGrab, Image, ImageTk
 from io import BytesIO
 import win32clipboard
 import tkinter as gui
+import tkinter.ttk as ttk
 
 class imgPart:
 
 	def __init__(self):
 		self.window = gui.Tk()
 		self.window.title("img.part - Load Image")
-		self.window.attributes('-topmost',1)
+		self.window.state("zoomed")
+		self.window.configure(background="black")
 		self.loadImageBtn = gui.Button(self.window, text="Load image from clipboard", command=self.loadImage)
 		self.loadImageBtn.pack()
 		self.window.mainloop()
@@ -23,8 +25,17 @@ class imgPart:
 			self.noImageLabel.pack()
 			return
 		if hasattr(self, "self.canvas"): self.canvas.destroy()
-		self.canvas = gui.Canvas(self.window, width=self.image.width, height=self.image.height)
-		self.photo = ImageTk.PhotoImage(self.image)
+		aspectRatio = self.image.width / self.image.height
+		width, height = self.window.winfo_width(), self.window.winfo_height()-60
+		screenAspectRatio = width / height
+		if aspectRatio > screenAspectRatio:
+			print (1)
+			image = self.image.resize((width, int(width / aspectRatio)))
+		else:
+			print (2)
+			image = self.image.resize((int(height * aspectRatio), height))
+		self.canvas = gui.Canvas(self.window, width=image.width, height=image.height)
+		self.photo = ImageTk.PhotoImage(image)
 		self.canvas.create_image(0, 0, image=self.photo, anchor=gui.NW)
 		self.canvas.bind("<Motion>", self.drawSplitLine)
 		self.canvas.bind("<Button-1>", self.splitImage)
@@ -34,11 +45,11 @@ class imgPart:
 
 	def drawSplitLine(self, event):
 		self.canvas.delete("line")
-		self.canvas.create_line(0, event.y, self.image.width, event.y, fill="red", tags="line")
+		self.canvas.create_line(0, event.y, self.canvas.winfo_width(), event.y, fill="red", tags="line")
 
 	def splitImage(self, event):
-		ySplit = event.y
 		width, height = self.image.size
+		ySplit = height * (event.y / self.canvas.winfo_height())
 		topImage = self.image.crop((0, 0, width, ySplit))
 		bottomImage = self.image.crop((0, ySplit, width, height))
 		self.canvas.unbind("<Motion>")
@@ -59,5 +70,5 @@ class imgPart:
 		win32clipboard.SetClipboardData(win32clipboard.CF_DIB, data)
 		win32clipboard.CloseClipboard()		
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	imgPart()
