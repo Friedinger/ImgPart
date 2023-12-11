@@ -4,7 +4,7 @@ import win32clipboard
 import tkinter as gui
 import tkinter.ttk as ttk
 
-class imgPart:
+class ImgPart:
 
 	def __init__(self):
 		self.window = gui.Tk()
@@ -71,4 +71,4 @@ class imgPart:
 		win32clipboard.CloseClipboard()		
 
 if __name__ == "__main__":
-	imgPart()
+	ImgPart()
