@@ -1,4 +1,4 @@
-# img.part
+# ImgPart
 
 Simple python tool that splits images by a horizontal line into two sub images.
 
@@ -13,7 +13,7 @@ Images are in and outputted by clipboard for fast usage.
 
 **Usage:**
 
--   Open `imgPart.pyw` to run it
+-   Open `ImgPart.pyw` to run it
 
 **Credit and license:**
 
