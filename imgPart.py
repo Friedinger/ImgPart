@@ -14,7 +14,7 @@ class ImgPart:
 		gui.set_appearance_mode("System")
 		gui.set_default_color_theme("blue")
 		self.window = gui.CTk()
-		self.window.after(0, lambda: self.window.wm_state('zoomed'))
+		self.window.after(0, lambda: self.window.wm_state("zoomed"))
 		style = Style()
 		style.configure("TFrame", background="gray14")
 		self.prepareGui()
