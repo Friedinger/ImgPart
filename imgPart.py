@@ -8,6 +8,9 @@ import customtkinter as gui
 class ImgPart:
 
 	def __init__(self):
+		self.start()
+
+	def start(self):
 		gui.set_appearance_mode("System")
 		gui.set_default_color_theme("blue")
 		self.window = gui.CTk()
@@ -25,7 +28,7 @@ class ImgPart:
 		self.loadImageBtn.pack(side=LEFT, padx=10)
 
 	def loadImage(self):
-		if hasattr(self, "noImageLabel"): self.noImageLabel.pack_forget()
+		if hasattr(self, "noImageLabel"): self.noImageLabel.destroy()
 		self.image = ImageGrab.grabclipboard()
 		try:
 			self.image.size
@@ -49,8 +52,10 @@ class ImgPart:
 		self.canvas.bind("<Motion>", self.drawSplitLine)
 		self.canvas.bind("<Button-1>", self.splitImage)
 		self.canvas.pack()
+		self.splitImageLabel = gui.CTkLabel(self.buttonFrame, text="Select where to split the image")
+		self.splitImageLabel.pack(side=LEFT, padx=10)
 		self.window.title("img.part - Split Image")
-		self.loadImageBtn.pack_forget()
+		self.loadImageBtn.destroy()
 
 	def drawSplitLine(self, event):
 		self.canvas.delete("line")
@@ -63,6 +68,7 @@ class ImgPart:
 		bottomImage = self.image.crop((0, ySplit, width, height))
 		self.canvas.unbind("<Motion>")
 		self.canvas.unbind("<Button-1>")
+		self.splitImageLabel.destroy()
 		saveTopImageBtn = gui.CTkButton(self.buttonFrame, text="Save top image to clipboard", command=lambda:self.saveImageToClipboard(topImage))
 		saveTopImageBtn.pack(side=LEFT, padx=10)
 		saveBottomImageBtn = gui.CTkButton(self.buttonFrame, text="Save bottom image to clipboard", command=lambda:self.saveImageToClipboard(bottomImage))
