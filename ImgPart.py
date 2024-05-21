@@ -41,10 +41,8 @@ class ImgPart:
 		width, height = self.window.winfo_width(), self.window.winfo_height()-50
 		screenAspectRatio = width / height
 		if aspectRatio > screenAspectRatio:
-			print (1)
 			image = self.image.resize((width, int(width / aspectRatio)))
 		else:
-			print (2)
 			image = self.image.resize((int(height * aspectRatio), height))
 		self.canvas = gui.CTkCanvas(self.window, width=image.width, height=image.height, relief="flat", highlightthickness=0)
 		self.photo = ImageTk.PhotoImage(image)
@@ -59,6 +57,7 @@ class ImgPart:
 
 	def drawSplitLine(self, event):
 		self.canvas.delete("line")
+		self.canvas.create_line(0, event.y + 1, self.canvas.winfo_width(), event.y + 1, fill="black", tags="line")
 		self.canvas.create_line(0, event.y, self.canvas.winfo_width(), event.y, fill="red", tags="line")
 
 	def splitImage(self, event):
@@ -73,7 +72,7 @@ class ImgPart:
 		saveTopImageBtn.pack(side=LEFT, padx=10)
 		saveBottomImageBtn = gui.CTkButton(self.buttonFrame, text="Save bottom image to clipboard", command=lambda:self.saveImageToClipboard(bottomImage))
 		saveBottomImageBtn.pack(side=LEFT, padx=10)
-		resetImageBtn = gui.CTkButton(self.buttonFrame, text="Reset image", command=lambda:self.resetImage())
+		resetImageBtn = gui.CTkButton(self.buttonFrame, text="Load new image from clipboard", command=lambda:self.resetImage())
 		resetImageBtn.pack(side=RIGHT, padx=10)
 		self.window.title("img.part - Save Image")
 
@@ -91,6 +90,7 @@ class ImgPart:
 		for widget in self.window.winfo_children():
 			widget.destroy()
 		self.prepareGui()
+		self.loadImage()
 
 if __name__ == "__main__":
 	ImgPart()
