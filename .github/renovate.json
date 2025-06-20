@@ -7,7 +7,9 @@
 		"pip_requirements"
 	],
 	"pip_requirements": {
-		"fileMatch": ["(^|/)requirements(-.*)?.txt$"]
+		"managerFilePatterns": [
+			"/(^|/)requirements(-.*)?.txt$/"
+		]
 	},
 	"major": {
 		"automerge": false
