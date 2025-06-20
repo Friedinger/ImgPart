@@ -1,28 +1,42 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:recommended"],
-	"enabledManagers": ["pip_requirements"],
+	"extends": [
+		"config:recommended"
+	],
+	"enabledManagers": [
+		"pip_requirements"
+	],
 	"pip_requirements": {
-    		"fileMatch": ["(^|/)requirements(-.*)?.txt$"]
-  	},
+		"managerFilePatterns": [
+			"/(^|/)requirements(-.*)?.txt$/"
+		]
+	},
 	"major": {
 		"automerge": false
 	},
-	"labels": ["dependencies"],
+	"labels": [
+		"dependencies"
+	],
 	"commitMessagePrefix": "⬆️",
 	"commitMessageAction": "Upgrade",
 	"packageRules": [
 		{
-			"matchUpdateTypes": ["pin"],
+			"matchUpdateTypes": [
+				"pin"
+			],
 			"commitMessagePrefix": "📌",
 			"commitMessageAction": "Pin"
 		},
 		{
-			"matchUpdateTypes": ["rollback"],
+			"matchUpdateTypes": [
+				"rollback"
+			],
 			"commitMessagePrefix": "⬇️",
 			"commitMessageAction": "Downgrade"
 		}
 	],
 	"dependencyDashboardTitle": "📌 Dependency Dashboard",
-	"dependencyDashboardLabels": ["dependencies"]
+	"dependencyDashboardLabels": [
+		"dependencies"
+	]
 }
