@@ -3,12 +3,12 @@
 	"extends": ["config:recommended"],
 	"enabledManagers": ["pip_requirements"],
 	"pip_requirements": {
-		"fileMatch": ["^requirements\\.txt$"]
-	},
+    		"fileMatch": ["(^|/)requirements(-.*)?.txt$"]
+  	},
 	"major": {
 		"automerge": false
 	},
-	"labels": ["📌 Dependencies"],
+	"labels": ["dependencies"],
 	"commitMessagePrefix": "⬆️",
 	"commitMessageAction": "Upgrade",
 	"packageRules": [
@@ -24,5 +24,5 @@
 		}
 	],
 	"dependencyDashboardTitle": "📌 Dependency Dashboard",
-	"dependencyDashboardLabels": ["📌 Dependencies"]
+	"dependencyDashboardLabels": ["dependencies"]
 }
