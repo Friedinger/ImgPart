@@ -17,5 +17,5 @@ Images are in and outputted by clipboard for fast usage.
 
 **Credit and license:**
 
--   © 2023 [Friedinger](https://friedinger.org/)
+-   © 2025 [Friedinger](https://friedinger.org/)
 -   License: [MIT License](https://github.com/Friedinger/ImgPart/blob/main/LICENSE)
